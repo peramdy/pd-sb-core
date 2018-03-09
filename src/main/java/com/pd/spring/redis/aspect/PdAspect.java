@@ -1,8 +1,8 @@
 package com.pd.spring.redis.aspect;
 
-import com.pd.spring.redis.uitil.JedisUtils;
 import com.pd.spring.redis.PdCache;
 import com.pd.spring.redis.PdDelCache;
+import com.pd.spring.redis.uitil.JedisUtils;
 import com.pd.spring.utils.ParseSpringEl;
 import com.pd.spring.utils.SerializeUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
  * @author pd 2018/3/8.
  */
 @Aspect
-@Component
+@Component("pdCacheAspect")
 public class PdAspect {
 
     @Autowired
@@ -41,18 +41,16 @@ public class PdAspect {
             if (pdCache.value() == null) {
                 return joinPoint.proceed();
             }
-
             String key = getKey(pdCache.value(), joinPoint);
             if (key == null) {
                 return joinPoint.proceed();
             }
-
             int expire = pdCache.expire();
             jedis = jedisUtils.createJedis();
             byte[] keyBytes = SerializeUtils.serializeObject(key);
             byte[] value = jedis.get(keyBytes);
             if (value == null) {
-                String currentValue = (String) joinPoint.proceed();
+                Object currentValue = joinPoint.proceed();
                 if (currentValue != null) {
                     byte[] valueBytes = SerializeUtils.serializeObject(currentValue);
                     if (expire > 0) {
@@ -63,8 +61,14 @@ public class PdAspect {
                 }
                 return currentValue;
             } else {
-                String valueStr = SerializeUtils.deserialize(value, String.class);
-                return valueStr;
+                /***设置过期时间***/
+                if (expire > 0) {
+                    jedis.expire(keyBytes, expire);
+                }
+                /*** 获取返回类型 ***/
+                Class returnType = ((MethodSignature) joinPoint.getSignature()).getReturnType();
+                Object reCacheValue = SerializeUtils.deserialize(value, returnType);
+                return reCacheValue;
             }
         } catch (Throwable throwable) {
             throwable.printStackTrace();

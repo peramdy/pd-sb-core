@@ -1,7 +1,9 @@
 package com.pd.spring.test.service;
 
+import com.pd.spring.modelattribute.IP;
 import com.pd.spring.redis.PdCache;
 import com.pd.spring.redis.PdDelCache;
+import com.pd.spring.test.model.Msg;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,4 +23,20 @@ public class TestService {
         System.out.println("del db");
         return "pd-del";
     }
+
+    @PdCache(value = "#{msgId}", expire = 5)
+    public Msg msgInfo(Integer msgId) {
+        Msg msg = new Msg();
+        msg.setId(123);
+        msg.setContent("hello world");
+        System.out.println("QUERY MSG DB");
+        return msg;
+    }
+
+
+    public String queryIP(@IP String ip) {
+        return "ip";
+    }
+
+
 }

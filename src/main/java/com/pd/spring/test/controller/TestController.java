@@ -1,6 +1,7 @@
 package com.pd.spring.test.controller;
 
 
+import com.pd.spring.test.model.Msg;
 import com.pd.spring.test.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,5 +31,21 @@ public class TestController {
         String str = testService.delMsg(id);
         return str;
     }
+
+    @GetMapping("/ip")
+    @ResponseBody
+    public String ip() {
+        String str = testService.queryIP("1213");
+        return str;
+    }
+
+
+    @GetMapping("/msg")
+    @ResponseBody
+    public String msg() {
+        Msg msg = testService.msgInfo(123);
+        return msg.toString();
+    }
+
 
 }

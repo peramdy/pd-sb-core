@@ -60,6 +60,24 @@ public static String getKey(String key, String[] parametersName, Object[] args) 
     return expression.getValue(context, String.class);
 }
 
+自定义注解相关说明
+
+@Retention：注解的保留位置　　　　　　　　　
+@Retention(RetentionPolicy.SOURCE)   //注解仅存在于源码中，在class字节码文件中不包含
+@Retention(RetentionPolicy.CLASS)     // 默认的保留策略，注解会在class字节码文件中存在，但运行时无法获得，
+@Retention(RetentionPolicy.RUNTIME)  // 注解会在class字节码文件中存在，在运行时可以通过反射获取到
+@Target:注解的作用目标　　　　　　
+@Target(ElementType.TYPE)   //接口、类、枚举、注解
+@Target(ElementType.FIELD) //字段、枚举的常量
+@Target(ElementType.METHOD) //方法
+@Target(ElementType.PARAMETER) //方法参数
+@Target(ElementType.CONSTRUCTOR)  //构造函数
+@Target(ElementType.LOCAL_VARIABLE)//局部变量
+@Target(ElementType.ANNOTATION_TYPE)//注解
+@Target(ElementType.PACKAGE) ///包   
+@Document：说明该注解将被包含在javadoc中
+@Inherited：说明子类可以继承父类中的该注解
+
 ```
 ##### 对jedis的封装
 ```
@@ -78,7 +96,8 @@ public Object intercept(Object enhance, Method method, Object[] args, MethodProx
 ##### 读取配置文件 @ConfigurationProperties
 ```
 @ConfigurationProperties注解主要用来把properties配置文件转化为bean来使用的，而@EnableConfigurationProperties注解的作用是
-@ConfigurationProperties注解生效。如果只配置@ConfigurationProperties注解，在IOC容器中是获取不到properties配置文件转化的bean的
+@ConfigurationProperties注解生效。如果只配置@ConfigurationProperties注解，在IOC容器中是获取不到properties配置文件转化
+的bean的
 
 @Component
 /*prefix定义配置文件中属性*/
@@ -101,3 +120,4 @@ public class ComponentConfiguration {
 }
 
 ```
+##### @ModelAttribute
