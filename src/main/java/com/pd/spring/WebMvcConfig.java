@@ -1,6 +1,6 @@
 package com.pd.spring;
 
-import com.pd.spring.modelattribute.ArgumentResolver;
+import com.pd.spring.modelattribute.IpResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -12,16 +12,17 @@ import java.util.List;
  * @author pd 2018/3/9.
  */
 @Configuration
-public class Config extends WebMvcConfigurerAdapter {
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(argumentResolver());
+        argumentResolvers.add(ipResolver());
         super.addArgumentResolvers(argumentResolvers);
     }
 
     @Bean
-    public ArgumentResolver argumentResolver() {
-        return new ArgumentResolver();
+    public IpResolver ipResolver() {
+        return new IpResolver();
     }
+
 }

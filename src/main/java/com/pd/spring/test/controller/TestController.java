@@ -1,6 +1,8 @@
 package com.pd.spring.test.controller;
 
 
+import com.pd.spring.modelattribute.IP;
+import com.pd.spring.modelattribute.NotBlank;
 import com.pd.spring.test.model.Msg;
 import com.pd.spring.test.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +36,16 @@ public class TestController {
 
     @GetMapping("/ip")
     @ResponseBody
-    public String ip() {
+    public String ip(@IP String ip) {
         String str = testService.queryIP("1213");
+        System.out.println(str);
         return str;
     }
 
 
     @GetMapping("/msg")
     @ResponseBody
-    public String msg() {
+    public String msg(@NotBlank String ss) {
         Msg msg = testService.msgInfo(123);
         return msg.toString();
     }

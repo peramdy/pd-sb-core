@@ -35,6 +35,7 @@ public class TestService {
 
 
     public String queryIP(@IP String ip) {
+        System.out.println(ip);
         return "ip";
     }
 

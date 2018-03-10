@@ -95,9 +95,9 @@ public Object intercept(Object enhance, Method method, Object[] args, MethodProx
 
 ##### 读取配置文件 @ConfigurationProperties
 ```
-@ConfigurationProperties注解主要用来把properties配置文件转化为bean来使用的，而@EnableConfigurationProperties注解的作用是
-@ConfigurationProperties注解生效。如果只配置@ConfigurationProperties注解，在IOC容器中是获取不到properties配置文件转化
-的bean的
+@ConfigurationProperties注解主要用来把properties配置文件转化为bean来使用的，而@EnableConfigurationProperties注解的
+作用是@ConfigurationProperties注解生效。如果只配置@ConfigurationProperties注解，在IOC容器中是获取不到properties配置
+文件转化的bean的
 
 @Component
 /*prefix定义配置文件中属性*/
@@ -121,3 +121,71 @@ public class ComponentConfiguration {
 
 ```
 ##### @ModelAttribute
+```
+@ModelAttribute一个具有如下三个作用：
+①绑定请求参数到命令对象：放在功能处理方法的入参上时，用于将多个请求参数绑定到一个命令对象，从而简化绑
+定流程，而且自动暴露为模型数据用于视图页面展示时使用；
+
+②暴露表单引用对象为模型数据：放在处理器的一般方法（非功能处理方法）上时，是为表单准备要展示的表单引用
+对象，如注册时需要选择的所在城市等，而且在执行功能处理方法（@RequestMapping 注解的方法）之前，自动添加
+到模型对象中，用于视图页面展示时使用；
+
+③暴露@RequestMapping 方法返回值为模型数据：放在功能处理方法的返回值上时，是暴露功能处理方法的返回值为
+模型数据，用于视图页面展示时使用。
+
+使用：
+BaseModel{
+ @ModelAttribute("ip")
+ public String getClientIpAddress(HttpServletRequest request) {}
+}
+
+@RestController
+public class TestModelAttributeController extends BaseModel {
+    @GetMapping("/test")
+    @ResponseBody
+    public String userId(@ModelAttribute("userId") Integer userId) {
+        System.out.println(userId);
+        return "success";
+    }
+}
+
+```
+##### HandlerMethodArgumentResolver 自定义注解（controller层生效）
+```
+自定义注解类
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.PARAMETER)
+public @interface IP {
+}
+
+实现 HandlerMethodArgumentResolver类，重写
+@Override
+public boolean supportsParameter(MethodParameter methodParameter) {
+    return false;
+}
+
+@Override
+public Object resolveArgument(MethodParameter methodParameter,
+                              ModelAndViewContainer modelAndViewContainer,
+                              NativeWebRequest nativeWebRequest,
+                              WebDataBinderFactory webDataBinderFactory) throws Exception {
+    return null;
+}
+
+
+继承WebMvcConfigurerAdapter类
+@Configuration
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(pResolver());
+        super.addArgumentResolvers(argumentResolvers);
+    }
+    @Bean
+    public IpResolver ipResolver() {
+        return new IpResolver();
+    }
+}
+
+```
