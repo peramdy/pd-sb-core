@@ -74,6 +74,14 @@
             <scope>test</scope>
         </dependency>
 
+
+        <!--<dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>0.1.0</version>
+        </dependency>-->
+
+
     </dependencies>
 
 
@@ -84,9 +92,16 @@
         <plugins>
 
             <!-- spring-boot-maven-plugin -->
+            <!--<plugin>
+                   <groupId>org.springframework.boot</groupId>
+                   <artifactId>spring-boot-maven-plugin</artifactId>
+               </plugin>-->
+
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- maven-jar-plugin -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
             </plugin>
 
         </plugins>

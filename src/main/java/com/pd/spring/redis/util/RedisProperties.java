@@ -1,16 +1,19 @@
-package com.pd.spring.redis.uitil;
+package com.pd.spring.redis.util;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+
+import static com.pd.spring.utils.PdConstants.*;
 
 /**
  * @author pd 2018/3/8.
  */
-@Component
-@ConfigurationProperties(prefix = "pd.redis")
-public class RedisConfig {
+@ConfigurationProperties(prefix = PD_REDIS_PREFIX)
+public class RedisProperties {
 
+
+    @Value("localhost:6379")
     private String addresses;
     private int timeout;
     private int maxTotal;

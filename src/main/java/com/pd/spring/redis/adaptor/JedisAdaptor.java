@@ -40,13 +40,13 @@ public class JedisAdaptor extends Jedis implements MethodInterceptor {
 
     @Override
     public Object intercept(Object enhance, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
-        logger.info("jedis monitor start");
-        logger.info("jedis method name :" + method.getName());
+        logger.debug("jedis monitor start");
+        logger.debug("jedis method name :" + method.getName());
         for (Object arg : args) {
-            logger.info("jedis arg = " + arg.getClass().toString() + " : " + arg);
+            logger.debug("jedis arg = " + arg.getClass().toString() + " : " + arg);
         }
         Object result = methodProxy.invokeSuper(enhance, args);
-        logger.info("jedis result = " + result);
+        logger.debug("jedis result = " + result);
         return result;
     }
 

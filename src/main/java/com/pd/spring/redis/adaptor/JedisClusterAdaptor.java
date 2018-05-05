@@ -27,13 +27,13 @@ public class JedisClusterAdaptor extends JedisCluster implements MethodIntercept
 
     @Override
     public Object intercept(Object enhance, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
-        logger.info("jedis-cluster monitor start");
-        logger.info("jedis-cluster method name :" + method.getName());
+        logger.debug("jedis-cluster monitor start");
+        logger.debug("jedis-cluster method name :" + method.getName());
         for (Object arg : args) {
-            logger.info("jedis-cluster arg = " + arg.getClass().toString() + " : " + arg);
+            logger.debug("jedis-cluster arg = " + arg.getClass().toString() + " : " + arg);
         }
         Object result = methodProxy.invokeSuper(enhance, args);
-        logger.info("jedis-cluster result = " + result);
+        logger.debug("jedis-cluster result = " + result);
         return result;
     }
 

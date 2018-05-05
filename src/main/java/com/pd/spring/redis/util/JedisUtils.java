@@ -1,4 +1,4 @@
-package com.pd.spring.redis.uitil;
+package com.pd.spring.redis.util;
 
 import com.pd.spring.redis.builder.JedisBuilder;
 import com.pd.spring.redis.builder.JedisClusterBuilder;
@@ -16,7 +16,7 @@ import redis.clients.jedis.JedisPoolConfig;
 public class JedisUtils {
 
     @Autowired
-    private RedisConfig redisConfig;
+    private RedisProperties redisConfig;
 
 //    @Value("${pd.redis.addresses}")
 //    private String addresses;
