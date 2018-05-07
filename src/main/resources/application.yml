@@ -1,10 +1,10 @@
 pd:
   application:
     redis:
-      addresses: localhost:6379
-      timeout:  120
-      maxTotal: 100
-      maxIdle: 50
-      minIdle: 10
+#      addresses: localhost:6379
+#      timeout:  120
+#      maxTotal: 100
+#      maxIdle: 50
+#      minIdle: 10
       ip: 192.168.136.130
       port: 16379

@@ -3,7 +3,7 @@ package com.pd.spring.exception;
 /**
  * @author pd 2018/3/8.
  */
-public class PdIllegalArgumentException extends IllegalArgumentException {
+public class PdIllegalArgumentException extends PdRuntimeException {
 
     public PdIllegalArgumentException() {
     }

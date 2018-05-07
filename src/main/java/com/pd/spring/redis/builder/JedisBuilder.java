@@ -1,6 +1,7 @@
 package com.pd.spring.redis.builder;
 
 import com.pd.spring.exception.PdIllegalArgumentException;
+import com.pd.spring.exception.PdJedisConnectionException;
 import com.pd.spring.redis.adaptor.JedisAdaptor;
 import redis.clients.jedis.Jedis;
 
@@ -47,7 +48,12 @@ public class JedisBuilder {
         if (host == null) {
             throw new PdIllegalArgumentException("未配置redis集群ip地址！");
         }
-        Jedis jedis = new JedisAdaptor(host, port, timeout);
+        Jedis jedis = null;
+        try {
+            jedis = new JedisAdaptor(host, port, timeout);
+        } catch (Exception e) {
+            throw new PdJedisConnectionException("redis 连接异常了！", e);
+        }
         return jedis;
     }
 

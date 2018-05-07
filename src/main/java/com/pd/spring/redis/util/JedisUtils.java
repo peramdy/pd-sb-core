@@ -18,28 +18,6 @@ public class JedisUtils {
     @Autowired
     private RedisProperties redisConfig;
 
-//    @Value("${pd.redis.addresses}")
-//    private String addresses;
-//
-//    @Value("${pd.redis.timeout}")
-//    private int timeout;
-//
-//    @Value("${pd.redis.maxTotal}")
-//    private int maxTotal;
-//
-//    @Value("${pd.redis.maxIdle}")
-//    private int maxIdle;
-//
-//    @Value("${pd.redis.minIdle}")
-//    private int minIdle;
-//
-//    @Value("${pd.redis.ip}")
-//    private String ip;
-//
-//    @Value("${pd.redis.port}")
-//    private int port;
-
-
     /**
      * create cluster
      *
