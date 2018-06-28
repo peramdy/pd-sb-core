@@ -1,4 +1,10 @@
 ## pd-sb-core
+##### 注解
+````java
+@com.pd.spring.ip.PdIP
+@com.pd.spring.redis.PdCache
+@com.pd.spring.redis.PdDelCache
+````
 ##### 自定义序列化 protostuff
 ```
 使用protostuff-core和protostuff-runtime完成序列化
@@ -150,7 +156,7 @@ public class TestModelAttributeController extends BaseModel {
 }
 
 ```
-##### HandlerMethodArgumentResolver 自定义注解（controller层生效）
+##### HandlerMethodArgumentResolver 自定义注解（参数解析器）
 ```
 自定义注解类
 @Documented

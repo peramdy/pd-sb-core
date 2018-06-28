@@ -4,8 +4,9 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import static com.pd.spring.utils.PdConstants.PD_PACKAGE_PREFIX;
 
@@ -15,6 +16,7 @@ import static com.pd.spring.utils.PdConstants.PD_PACKAGE_PREFIX;
  */
 @SpringBootApplication
 @ComponentScan(value = PD_PACKAGE_PREFIX)
+@EnableAspectJAutoProxy
 public class PdApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package com.pd.spring.redis.util;
 
+import com.pd.spring.exception.PdJedisConnectionException;
 import com.pd.spring.redis.builder.JedisBuilder;
 import com.pd.spring.redis.builder.JedisClusterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class JedisUtils {
      * @return
      * @throws Exception
      */
-    public JedisCluster createJedisCluster() throws Exception {
+    public JedisCluster createJedisCluster() {
         JedisClusterBuilder jedisClusterBuilder = JedisClusterBuilder.getInstance();
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxTotal(redisConfig.getMaxTotal());
@@ -34,7 +35,16 @@ public class JedisUtils {
         jedisClusterBuilder.setGenericObjectPoolConfig(poolConfig);
         jedisClusterBuilder.setMaxTotal(redisConfig.getMaxTotal());
         jedisClusterBuilder.setTimeout(redisConfig.getTimeout());
-        return jedisClusterBuilder.build();
+        try {
+            return jedisClusterBuilder.build();
+        } catch (Exception e) {
+            try {
+                throw new PdJedisConnectionException(e);
+            } catch (PdJedisConnectionException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return null;
     }
 
 
@@ -53,8 +63,11 @@ public class JedisUtils {
             jedisBuilder.setTimeout(redisConfig.getTimeout());
             jedis = jedisBuilder.build();
         } catch (Exception e) {
-            e.printStackTrace();
-            return jedis;
+            try {
+                throw new PdJedisConnectionException(e);
+            } catch (PdJedisConnectionException e1) {
+                e1.printStackTrace();
+            }
         }
         return jedis;
     }

@@ -1,6 +1,5 @@
 package com.pd.spring.test.service;
 
-import com.pd.spring.modelattribute.IP;
 import com.pd.spring.redis.PdCache;
 import com.pd.spring.redis.PdDelCache;
 import com.pd.spring.test.model.Msg;
@@ -34,7 +33,7 @@ public class TestService {
     }
 
 
-    public String queryIP(@IP String ip) {
+    public String queryIP(String ip) {
         System.out.println(ip);
         return "ip";
     }
