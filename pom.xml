@@ -4,7 +4,7 @@
 
     <groupId>com.pd.spring</groupId>
     <artifactId>pd-sb-core</artifactId>
-    <version>1.0.0</version>
+    <version>1.5.10.RELEASE</version>
     <packaging>jar</packaging>
 
     <name>pd-sb-core</name>
